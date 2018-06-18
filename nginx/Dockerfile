@@ -15,15 +15,16 @@ ENV ENCRYPTION_TYPE $ENCRYPTION_TYPE
 WORKDIR /etc/nginx
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
-COPY conf/default.conf.tmpl /etc/nginx/conf.d/default.conf
-COPY conf/defaultssl.conf.tmpl /etc/nginx/conf.d/defaultssl.conf.tmpl
-COPY conf/defaultownssl.conf.tmpl /etc/nginx/conf.d/defaultownssl.conf
+COPY conf/default.conf.tmpl /etc/nginx/conf.d/default
+COPY conf/defaultssl.conf.tmpl /etc/nginx/conf.d/defaultssl.tmpl
+COPY conf/defaultownssl.conf.tmpl /etc/nginx/conf.d/defaultownssl
+
 COPY conf/fullchain.pem /etc/nginx/conf.d/fullchain.pem
 COPY conf/privkey.pem /etc/nginx/conf.d/privkey.pem
 COPY conf/entrypoint.sh entrypoint.sh
 
 RUN chmod +x entrypoint.sh
-RUN envsubst < /etc/nginx/conf.d/defaultssl.conf.tmpl > /etc/nginx/conf.d/defaultssl.conf
+RUN envsubst < /etc/nginx/conf.d/defaultssl.tmpl > /etc/nginx/conf.d/defaultssl
 
 ENTRYPOINT /etc/nginx/entrypoint.sh
 EXPOSE 80 443

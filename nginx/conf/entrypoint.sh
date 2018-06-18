@@ -9,17 +9,17 @@ if [ "$ENCRYPTION_TYPE" = "auto" ]; then
 	    && certbot-auto certonly --standalone --non-interactive --agree-tos --email admin@${DOMAIN_NAME} -d ${DOMAIN_NAME} 2>&1 | tee /var/log/letsencrypt/install.log \
 	   	&& if [ -f /etc/letsencrypt/live/${DOMAIN_NAME}/cert.pem ]; then
 	       	echo "letsencrypt was successful, use generated cert" \
-	        && rm /etc/nginx/conf.d/defaultownssl.conf && rm /etc/nginx/conf.d/default.conf && nginx -s reload
+	        && mv /etc/nginx/conf.d/defaultssl /etc/nginx/conf.d/defaultssl.conf && nginx -s reload
 	    else
 			echo "letsencrypt failed, use regular http" \
-		   	&& rm /etc/nginx/conf.d/defaultownssl.conf && rm /etc/nginx/conf.d/defaultssl.conf
+		   	&& mv /etc/nginx/conf.d/default /etc/nginx/conf.d/default.conf
 		fi
 	fi
 elif [ "$ENCRYPTION_TYPE" = "user" ]; then
     echo "ENCRYPTION_TYPE was user" \
-    && rm /etc/nginx/conf.d/defaultssl.conf && rm /etc/nginx/conf.d/default.conf
+    && mv /etc/nginx/conf.d/defaultownssl /etc/nginx/conf.d/defaultownssl.conf
 elif [ "$ENCRYPTION_TYPE" = "none" ]; then
 	echo "ENCRYPTION_TYPE was none" \
-   	&& rm /etc/nginx/conf.d/defaultownssl.conf && rm /etc/nginx/conf.d/defaultssl.conf
+   	&& mv /etc/nginx/conf.d/default /etc/nginx/conf.d/default.conf
 fi
 nginx -g "daemon off;"
