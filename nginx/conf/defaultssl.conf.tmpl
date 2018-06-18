@@ -21,7 +21,7 @@ server {
 }
 
 server {
-    listen       80;
+    listen       80 default_server;
     server_name  localhost;
 
     #charset koi8-r;
@@ -68,6 +68,6 @@ server {
     }
 
 
-  ssl_certificate ${CERT_PATH}/fullchain.pem;
-  ssl_certificate_key ${CERT_PATH}/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/${DOMAIN_NAME}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${DOMAIN_NAME}/privkey.pem;
 }
