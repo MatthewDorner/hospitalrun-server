@@ -10,13 +10,17 @@ RUN  certbot-auto --os-packages-only --non-interactive
 
 ENV DOMAIN_NAME $DOMAIN_NAME
 
+RUN if [[ -f conf/fullchain.pem ] && [ -f conf/privkey.pem ]]; then export CERT_PATH='/etc/nginx/'; else export CERT_PATH='/etc/letsencrypt/live/${DOMAIN_NAME}/'; fi
+
 WORKDIR /etc/nginx
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 COPY conf/default.conf.tmpl /etc/nginx/conf.d/default.conf.tmpl
 COPY conf/defaultssl.conf.tmpl /etc/nginx/conf.d/defaultssl.conf
 COPY conf/entrypoint.sh entrypoint.sh
-COPY conf/nginx-selfsigned.crt /etc/nginx/nginx-selfsigned.crt
-COPY conf/nginx-selfsigned.key /etc/nginx/nginx-selfsigned.key
+
+RUN if [ -f conf/fullchain.pem ]; then cp conf/fullchain.pem /etc/nginx/fullchain.pem; fi
+RUN if [ -f conf/privkey.pem ]; then cp conf/privkey.pem /etc/nginx/privkey.pem; fi
+
 RUN chmod +x entrypoint.sh
 RUN envsubst < /etc/nginx/conf.d/default.conf.tmpl > /etc/nginx/conf.d/default.conf \
         && envsubst < /etc/nginx/conf.d/defaultssl.conf > /etc/nginx/conf.d/defaultssl

@@ -68,6 +68,6 @@ server {
     }
 
 
-  ssl_certificate /etc/nginx/nginx-selfsigned.crt;
-  ssl_certificate_key /etc/nginx/nginx-selfsigned.key;
+  ssl_certificate ${CERT_PATH}/fullchain.pem;
+  ssl_certificate_key ${CERT_PATH}/privkey.pem;
 }
