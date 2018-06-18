@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-if [ ! -z "$DOMAIN_NAME" ]; then
-	echo "DOMAIN_NAME was set, gonna use letsencrypt" \
+
+if [ "$ENCRYPTION_TYPE" = "auto" ]; then
+	echo "ENCRYPTION_TYPE was auto, gonna use letsencrypt" \
 	&& (crontab -l 2>/dev/null; echo "30 2 * * 1 /usr/bin/certbot-auto renew --quiet --no-self-upgrade >> /var/log/letsencrypt/le-renew.log") | crontab - \
 	&& mkdir -p /var/log/letsencrypt && touch /var/log/letsencrypt/install.log \
 	&& if [ ! -f /etc/letsencrypt/live/${DOMAIN_NAME}/cert.pem ]; then
@@ -14,11 +15,11 @@ if [ ! -z "$DOMAIN_NAME" ]; then
 		   	&& rm /etc/nginx/conf.d/defaultownssl.conf && rm /etc/nginx/conf.d/defaultssl.conf
 		fi
 	fi
-elif [ -e /etc/nginx/conf.d/fullchain.pem -a -e /etc/nginx/conf.d/privkey.pem ]; then
-    echo "DOMAIN_NAME was not set, but there was a user cert" \
+elif [ "$ENCRYPTION_TYPE" = "user" ]; then
+    echo "ENCRYPTION_TYPE was user" \
     && rm /etc/nginx/conf.d/defaultssl.conf && rm /etc/nginx/conf.d/default.conf
-else
-	echo "there was no DOMAIN_NAME or user cert, use http" \
+elif [ "$ENCRYPTION_TYPE" = "none" ]; then
+	echo "ENCRYPTION_TYPE was none" \
    	&& rm /etc/nginx/conf.d/defaultownssl.conf && rm /etc/nginx/conf.d/defaultssl.conf
 fi
 nginx -g "daemon off;"
