@@ -2,9 +2,9 @@
 
 if [ "$ENCRYPTION_TYPE" = "auto" ]; then
 	echo "ENCRYPTION_TYPE was auto, gonna use letsencrypt" \
+	&& mv /etc/nginx/conf.d/defaultautossl /etc/nginx/conf.d/defaultautossl.conf \
 	&& (crontab -l 2>/dev/null; echo "30 2 * * 1 /usr/bin/certbot-auto renew --quiet --no-self-upgrade >> /var/log/letsencrypt/le-renew.log") | crontab - \
 	&& mkdir -p /var/log/letsencrypt && touch /var/log/letsencrypt/install.log \
-	&& mv /etc/nginx/conf.d/defaultautossl /etc/nginx/conf.d/defaultautossl.conf \
 	&& if [ ! -f /etc/letsencrypt/live/${DOMAIN_NAME}/cert.pem ]; then
 		echo "there was no cert, gonna try letsencrypt" \
 	    && certbot-auto certonly --standalone --non-interactive --agree-tos --email admin@${DOMAIN_NAME} -d ${DOMAIN_NAME} 2>&1 | tee /var/log/letsencrypt/install.log \
