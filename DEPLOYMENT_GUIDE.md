@@ -58,7 +58,11 @@ Follow these five easy steps to get HospitalRun up and running
 
 2. Run `cd hospitalrun-server`. This should take you into the `hospitalrun-server` root folder
 
-3. From this location, edit the `docker-compose.yml` file. If you wish to use automatic SSL cert generation, edit the `DOMAIN_NAME` argument and replace `www.example.com` as shown in the image below with the publicly accessible domain name that HospitalRun will run on. If instead you wish to use your own SSL cert, change the `ENCRYPTION_TYPE` argument to `self` and copy your SSL cert files to nginx/conf/cert/ as `ssl.crt` and `ssl.key`.
+3. From this location, edit the `docker-compose.yml` file.
+
+⋅⋅* If you wish to use automatic SSL cert generation, edit the `DOMAIN_NAME` argument and replace `www.example.com` as shown in the image below with the publicly accessible domain name that HospitalRun will run on.
+
+⋅⋅* If instead you wish to use your own SSL cert, change the `ENCRYPTION_TYPE` argument to `self` and copy your SSL cert files to nginx/conf/cert/ as `ssl.crt` and `ssl.key`. You can create the `cert` folder if it doesn't exist.
 
 4. Save the file and run `docker-compose up --build -d`. You should wait for some ten minutes or less for your environment to be up and running. Deployment speed will vary based on your internet connection speed and the quality of your infrastructure
 
