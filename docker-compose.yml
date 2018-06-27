@@ -15,6 +15,7 @@ services:
     image: hospitalrun_nginx
     volumes:
       - ./data/nginx/letsencrypt:/etc/letsencrypt
+      - ./nginx/conf/cert:/etc/nginx/cert
 
   hospitalrun:
     container_name: hospitalrun

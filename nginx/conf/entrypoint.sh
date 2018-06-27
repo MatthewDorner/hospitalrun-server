@@ -17,8 +17,8 @@ if [ "$ENCRYPTION_TYPE" = "auto" ]; then
 		   	&& rm /etc/nginx/conf.d/defaultautossl.conf
 		fi
 	fi
-elif [ "$ENCRYPTION_TYPE" = "user" ]; then
-    echo "ENCRYPTION_TYPE was user" \
+elif [ "$ENCRYPTION_TYPE" = "self" ]; then
+    echo "ENCRYPTION_TYPE was self" \
     && mv /etc/nginx/conf.d/defaultselfssl /etc/nginx/conf.d/defaultselfssl.conf
 elif [ "$ENCRYPTION_TYPE" = "none" ]; then
 	echo "ENCRYPTION_TYPE was none" \

@@ -67,6 +67,6 @@ server {
         deny  all;
     }
 
-    ssl_certificate /etc/nginx/conf.d/fullchain.pem;
-    ssl_certificate_key /etc/nginx/conf.d/privkey.pem;
+    ssl_certificate /etc/nginx/cert/ssl.crt;
+    ssl_certificate_key /etc/nginx/cert/ssl.key;
 }

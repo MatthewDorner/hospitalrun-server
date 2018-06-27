@@ -19,8 +19,6 @@ COPY conf/default.conf.tmpl /etc/nginx/conf.d/default
 COPY conf/defaultautossl.conf.tmpl /etc/nginx/conf.d/defaultautossl.tmpl
 COPY conf/defaultselfssl.conf.tmpl /etc/nginx/conf.d/defaultselfssl
 
-COPY conf/fullchain.pem /etc/nginx/conf.d/fullchain.pem
-COPY conf/privkey.pem /etc/nginx/conf.d/privkey.pem
 COPY conf/entrypoint.sh entrypoint.sh
 
 RUN chmod +x entrypoint.sh
