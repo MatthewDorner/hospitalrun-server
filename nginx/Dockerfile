@@ -24,7 +24,7 @@ COPY conf/privkey.pem /etc/nginx/conf.d/privkey.pem
 COPY conf/entrypoint.sh entrypoint.sh
 
 RUN chmod +x entrypoint.sh
-RUN envsubst < /etc/nginx/conf.d/defaultssl.tmpl > /etc/nginx/conf.d/defaultssl
+RUN envsubst < /etc/nginx/conf.d/defaultautossl.tmpl > /etc/nginx/conf.d/defaultautossl
 
 ENTRYPOINT /etc/nginx/entrypoint.sh
 EXPOSE 80 443
