@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-rm /etc/nginx/conf.d/default.conf
+rm /etc/nginx/conf.d/*.conf
 if [ "$ENCRYPTION_TYPE" = "auto" ]; then
 	echo "ENCRYPTION_TYPE was auto, use a cert from letsencrypt" \
 	&& mv /etc/nginx/conf.d/defaultautossl /etc/nginx/conf.d/defaultautossl.conf \
@@ -14,7 +14,7 @@ elif [ "$ENCRYPTION_TYPE" = "self" ]; then
     echo "ENCRYPTION_TYPE was self, use the provided ssl cert" \
     && mv /etc/nginx/conf.d/defaultselfssl /etc/nginx/conf.d/defaultselfssl.conf
 elif [ "$ENCRYPTION_TYPE" = "none" ]; then
-	echo "ENCRYPTION_TYPE was none" \
+	echo "ENCRYPTION_TYPE was none, use http only" \
    	&& mv /etc/nginx/conf.d/default /etc/nginx/conf.d/default.conf
 fi
 nginx -g "daemon off;"
