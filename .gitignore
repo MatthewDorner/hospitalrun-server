@@ -12,6 +12,7 @@ data/couchdb/*
 data/nginx/*
 
 nginx/conf/cert
+nginx/conf/cert/*
 
 hospitalrun.crt
 
