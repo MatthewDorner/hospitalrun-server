@@ -5,8 +5,7 @@ if [ "$ENCRYPTION_TYPE" = "auto" ]; then
 	&& (crontab -l 2>/dev/null; echo "30 2 * * 1 /usr/bin/certbot-auto renew --quiet --no-self-upgrade >> /var/log/letsencrypt/le-renew.log") | crontab - \
 	&& mkdir -p /var/log/letsencrypt && touch /var/log/letsencrypt/install.log \
 	&& if [ ! -f /etc/letsencrypt/live/${DOMAIN_NAME}/cert.pem ]; then
-		echo "there was no cert, try to get one from letsencrypt" \
-	    && certbot-auto certonly --standalone --non-interactive --agree-tos --email admin@${DOMAIN_NAME} -d ${DOMAIN_NAME} 2>&1 | tee /var/log/letsencrypt/install.log
+		certbot-auto certonly --standalone --non-interactive --agree-tos --email admin@${DOMAIN_NAME} -d ${DOMAIN_NAME} 2>&1 | tee /var/log/letsencrypt/install.log
 	fi
 elif [ "$ENCRYPTION_TYPE" = "self" ]; then
     	cp /etc/nginx/conf.d/defaultselfssl /etc/nginx/conf.d/defaultselfssl.conf
