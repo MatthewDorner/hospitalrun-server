@@ -62,7 +62,7 @@ Follow these five easy steps to get HospitalRun up and running
 
    To use automatic SSL cert generation, edit the `DOMAIN_NAME` argument and replace `www.example.com` as shown in the image below with the publicly accessible domain name that HospitalRun will run on.
 
-   To instead use your own SSL cert, change the `ENCRYPTION_TYPE` argument to `self` and place your certificate files at `nginx/conf/cert/ssl.crt` and `nginx/conf/cert/ssl.key`. You will need to create a `cert` folder if you haven't run the application yet.
+   To instead use your own SSL cert, change the `ENCRYPTION_TYPE` argument to `self` and place your certificate files at `data/nginx/cert/ssl.crt` and `data/nginx/cert/ssl.key`. You will need to create a `data/nginx/cert` path from the root folder if you haven't run the server yet.
   
    To use no SSL cert, change the `ENCRYPTION_TYPE` argument to `none`, but your server will only be accessible locally.
 

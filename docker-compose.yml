@@ -4,7 +4,7 @@ services:
     build:
       args:
         DOMAIN_NAME: www.example.com
-        ENCRYPTION_TYPE: auto
+        ENCRYPTION_TYPE: self
       context: nginx/.
       dockerfile: Dockerfile
     links:
@@ -15,7 +15,7 @@ services:
     image: hospitalrun_nginx
     volumes:
       - ./data/nginx/letsencrypt:/etc/letsencrypt
-      - ./nginx/conf/cert:/etc/nginx/cert
+      - ./data/nginx/cert:/etc/nginx/cert
 
   hospitalrun:
     container_name: hospitalrun
