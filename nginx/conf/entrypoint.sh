@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+rm /etc/nginx/conf.d/default.conf
 if [ "$ENCRYPTION_TYPE" = "auto" ]; then
 	echo "ENCRYPTION_TYPE was auto, gonna use letsencrypt" \
 	&& mv /etc/nginx/conf.d/defaultautossl /etc/nginx/conf.d/defaultautossl.conf \
